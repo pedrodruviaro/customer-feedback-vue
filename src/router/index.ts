@@ -13,6 +13,11 @@ const router = createRouter({
       path: '/kaizen',
       name: 'Kaizen',
       component: () => import('../views/KaizenView.vue')
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: () => import('../views/LoginView.vue')
     }
   ]
 })
