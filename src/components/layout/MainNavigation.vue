@@ -9,7 +9,7 @@ import { PhMapTrifold, PhLightbulb } from '@phosphor-icons/vue'
       Roadmap
     </RouterLink>
 
-    <RouterLink :to="{ name: 'Kaizen' }">
+    <RouterLink :to="{ name: 'Feedback' }">
       <PhLightbulb />
       Feeback
     </RouterLink>

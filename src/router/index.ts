@@ -10,9 +10,9 @@ const router = createRouter({
       component: RoadmapView
     },
     {
-      path: '/kaizen',
-      name: 'Kaizen',
-      component: () => import('../views/KaizenView.vue')
+      path: '/feedback',
+      name: 'Feedback',
+      component: () => import('../views/FeedbackView.vue')
     },
     {
       path: '/login',

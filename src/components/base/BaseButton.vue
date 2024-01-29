@@ -7,6 +7,7 @@ interface Props {
   trailing?: boolean
   link?: boolean
   to?: string | Object
+  iconOnly?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
@@ -18,7 +19,11 @@ withDefaults(defineProps<Props>(), {
 <template>
   <button
     :disabled="loading"
-    :class="[trailing === true ? 'flex-row' : 'flex-row-reverse', variant]"
+    :class="[
+      trailing === true ? 'flex-row' : 'flex-row-reverse',
+      iconOnly ? 'aspect-square px-2' : 'px-4',
+      variant
+    ]"
     v-if="!link"
   >
     <span v-if="loading">
@@ -29,9 +34,7 @@ withDefaults(defineProps<Props>(), {
       <slot name="icon" />
     </span>
 
-    <span>
-      <slot />
-    </span>
+    <slot />
   </button>
 
   <RouterLink
@@ -40,6 +43,7 @@ withDefaults(defineProps<Props>(), {
     :class="[
       trailing === true ? 'flex-row' : 'flex-row-reverse',
       loading ? 'disabled' : '',
+      iconOnly ? 'aspect-square px-2' : 'px-4',
       variant
     ]"
   >
@@ -60,7 +64,7 @@ withDefaults(defineProps<Props>(), {
 <style scoped>
 button,
 a {
-  @apply bg-neutral-800 max-w-max text-neutral-50 px-4 py-2 rounded-md flex items-center gap-2 disabled:opacity-75 transition-all hover:bg-neutral-700;
+  @apply bg-neutral-800 max-w-max text-neutral-50  py-2 rounded-md flex items-center gap-2 disabled:opacity-75 transition-all hover:bg-neutral-700;
 }
 
 .outlined {
