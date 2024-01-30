@@ -2,6 +2,40 @@
 import LoginLayout from '@/layouts/LoginLayout.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import { PhGoogleLogo } from '@phosphor-icons/vue'
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { useFirebaseAuth } from 'vuefire'
+import { ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+
+const isLoading = ref<boolean>(false)
+const error = ref<boolean>(false)
+
+const provider = new GoogleAuthProvider()
+const auth = useFirebaseAuth()!
+const router = useRouter()
+const route = useRoute()
+
+async function handleLogin() {
+  try {
+    isLoading.value = true
+    error.value = false
+
+    const result = await signInWithPopup(auth, provider)
+
+    if (!result.user) {
+      error.value = true
+      return
+    }
+
+    const redirectTo = typeof route.query.redirect === 'string' ? route.query.redirect : '/'
+
+    router.push(redirectTo)
+  } catch (err) {
+    error.value = true
+  } finally {
+    isLoading.value = false
+  }
+}
 </script>
 
 <template>
@@ -13,12 +47,15 @@ import { PhGoogleLogo } from '@phosphor-icons/vue'
         you receive and use feedback!
       </p>
 
-      <BaseButton class="mt-8 mx-auto">
+      <BaseButton class="mt-8 mx-auto" @click="handleLogin" :loading="isLoading">
         Login with Google
         <template #icon>
           <PhGoogleLogo />
         </template>
       </BaseButton>
+      <p class="text-red-600 mt-4" v-if="error">
+        Failed to login... refresh the page and try again
+      </p>
     </section>
   </LoginLayout>
 </template>

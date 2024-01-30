@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import RoadmapView from '../views/RoadmapView.vue'
+import authGuard from '@/guards/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,11 +8,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'Roadmap',
-      component: RoadmapView
+      component: RoadmapView,
+      meta: {
+        needsAuth: true
+      }
     },
     {
       path: '/feedback',
       name: 'Feedback',
+      meta: {
+        needsAuth: true
+      },
       component: () => import('../views/FeedbackView.vue')
     },
     {
@@ -19,7 +26,17 @@ const router = createRouter({
       name: 'Login',
       component: () => import('../views/LoginView.vue')
     }
-  ]
+  ],
+
+  scrollBehavior(_, _2, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { top: 0 }
+    }
+  }
 })
+
+router.beforeEach(authGuard)
 
 export default router
