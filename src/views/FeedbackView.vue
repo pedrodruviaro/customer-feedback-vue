@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BaseButton from '@/components/base/BaseButton.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import BaseCard from '@/components/base/BaseCard.vue'
 import { PhPlus } from '@phosphor-icons/vue'
 import { useModal } from '@/composables/useModal'
 
@@ -27,24 +28,26 @@ function handleOpenModal() {
       </BaseButton>
     </section>
 
-    <section class="border rounded-md">
-      <div class="flex items-center gap-2 p-4 bg-gray-100 border-b">
-        <label>
-          Filter
-          <select>
-            <option value="">Select</option>
-          </select>
-        </label>
+    <BaseCard class="border rounded-md">
+      <template #header>
+        <div class="flex items-center gap-2">
+          <label>
+            Filter
+            <select>
+              <option value="">Select</option>
+            </select>
+          </label>
 
-        <label>
-          Categories
-          <select>
-            <option value="">Select</option>
-          </select>
-        </label>
-      </div>
+          <label>
+            Categories
+            <select>
+              <option value="">Select</option>
+            </select>
+          </label>
+        </div>
+      </template>
 
-      <div>
+      <template #default>
         <ul class="grid">
           <li class="border-b p-4 cursor-pointer" v-for="i in 10" :key="i">
             <h3 class="font-semibold mb-2">Criação de um portfólio público de criativos da bowe</h3>
@@ -54,8 +57,8 @@ function handleOpenModal() {
             </p>
           </li>
         </ul>
-      </div>
-    </section>
+      </template>
+    </BaseCard>
   </DefaultLayout>
 </template>
 

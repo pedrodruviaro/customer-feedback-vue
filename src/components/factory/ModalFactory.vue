@@ -40,7 +40,7 @@ const components: any = {
       <div
         class="bg-neutral-50 m-4 p-4 max-w-[40rem] shadow-md rounded-md overflow-y-auto max-h-[90vh]"
       >
-        <component :is="components[state.component]" v-bind="state.props" />
+        <Component :is="components[state.component]" v-bind="state.props" />
       </div>
     </div>
   </Transition>
