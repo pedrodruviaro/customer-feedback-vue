@@ -1,16 +1,49 @@
 <script setup lang="ts">
-import { useModal } from '@/composables/useModal'
-
-const { close } = useModal()
+interface Fields {
+  title: string
+  category: string
+  description: string
+}
 
 defineProps(['title'])
+
+const categories = ['Estudo', 'Projeto', 'Operações', 'Backlog']
+
+function handleNewTask(fields: Fields) {
+  console.log(fields)
+}
 </script>
 
 <template>
   <div>
-    {{ title }}
-    <h2>Essa é a modal de criação de novos feedbacks</h2>
+    <FormKit type="form" :actions="false" @submit="handleNewTask">
+      <FormKit
+        type="text"
+        label="Título do projeto"
+        placeholder="Reduzir custos com..."
+        name="title"
+        validation="required"
+      />
 
-    <button @click="close">FECHAR</button>
+      <FormKit
+        type="select"
+        label="Categoria"
+        name="category"
+        id="class"
+        placeholder="Selecione a categoria"
+        validation="required"
+        :options="categories"
+      />
+
+      <FormKit
+        type="textarea"
+        name="description"
+        label="Feedback"
+        placeholder="Descreva o feedbacks"
+        validation="required"
+      />
+
+      <FormKit type="submit" label="Criar" prefix-icon="check" />
+    </FormKit>
   </div>
 </template>
