@@ -20,7 +20,7 @@ watchEffect(() => {
 
 <template>
   <div
-    class="fixed h-1 bg-green-400 transition-all ease-out duration-200"
+    class="fixed top-0 h-1 bg-green-400 transition-all ease-out duration-200"
     :style="{ width: loadingWidthStyle }"
     v-if="!loadingStore.finished"
   ></div>
