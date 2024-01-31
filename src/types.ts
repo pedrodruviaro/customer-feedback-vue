@@ -3,3 +3,25 @@ export type ModalFactoryPayload = {
   modal: string
   props?: Object
 }
+
+export type Task = {
+  id: string
+  category: string
+  title: string
+  description: string
+  created_at: string
+  finish_by: string
+  status: string
+  is_finished: boolean
+  belongs_to: {
+    name: string
+    image: string
+  }
+}
+
+export type TaskRelations = {
+  [key: string]: {
+    color: string
+    items: Task[]
+  }
+}

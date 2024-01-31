@@ -8,7 +8,7 @@ import { useAuthActions } from '@/composables/useAuthActions'
 
 const router = useRouter()
 const user = useCurrentUser()
-if (user) {
+if (user.value) {
   router.push({ name: 'Roadmap' })
 }
 

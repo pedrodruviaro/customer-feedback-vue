@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { PhArrowSquareIn } from '@phosphor-icons/vue'
 import BaseCard from '@/components/base/BaseCard.vue'
+import type { Task } from '@/types'
 
 interface Props {
-  items: Array<any>
+  items: Array<Task>
   color: string
   title: string
 }
@@ -24,14 +25,17 @@ defineProps<Props>()
     </template>
 
     <template #default>
-      <ul class="grid gap-6 h-96 overflow-y-scroll p-4">
-        <li v-for="item in items" :key="item.title">
-          <RouterLink to="/" class="font-semibold flex items-start gap-2">
-            <PhArrowSquareIn class="flex-0 relative top-1" />
-            <p class="flex-1 text-sm">{{ item.title }}</p>
-          </RouterLink>
-        </li>
-      </ul>
+      <div class="p-4">
+        <ul class="grid gap-6 h-96 overflow-y-scroll" v-if="items.length > 0">
+          <li v-for="item in items" :key="item.title">
+            <RouterLink to="/" class="font-semibold flex items-start gap-2">
+              <PhArrowSquareIn class="flex-0 relative top-1" />
+              <p class="flex-1 text-sm">{{ item.title }}</p>
+            </RouterLink>
+          </li>
+        </ul>
+        <p v-else>Nada pra mostrar</p>
+      </div>
     </template>
   </BaseCard>
 </template>

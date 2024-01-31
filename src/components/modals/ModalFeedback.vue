@@ -1,16 +1,40 @@
 <script setup lang="ts">
+import { useCurrentUser, useFirestore } from 'vuefire'
+import { addDoc, collection } from 'firebase/firestore'
+
 interface Fields {
   title: string
   category: string
   description: string
 }
 
-defineProps(['title'])
+const user = useCurrentUser()
+const db = useFirestore()
 
 const categories = ['Estudo', 'Projeto', 'Operações', 'Backlog']
 
-function handleNewTask(fields: Fields) {
-  console.log(fields)
+async function handleNewTask(fields: Fields) {
+  const newTask = {
+    category: fields.category,
+    title: fields.title,
+    description: fields.description,
+    created_at: new Date().toISOString(),
+    finish_by: '',
+    status: '',
+    is_finished: false,
+    belongs_to: {
+      name: user.value?.displayName,
+      image: user.value?.photoURL
+    }
+  }
+
+  try {
+    const res = await addDoc(collection(db, 'kaizen'), newTask)
+
+    console.log(res)
+  } catch (error) {
+    console.error(error)
+  }
 }
 </script>
 
