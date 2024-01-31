@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@braid/vue-formulate": "^2.5.3",
     "@phosphor-icons/vue": "^2.1.6",
     "@vueuse/core": "^10.7.2",
     "firebase": "^10.7.2",

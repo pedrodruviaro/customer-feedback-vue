@@ -2,46 +2,17 @@
 import LoginLayout from '@/layouts/LoginLayout.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import { PhGoogleLogo } from '@phosphor-icons/vue'
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import { useCurrentUser, useFirebaseAuth } from 'vuefire'
-import { ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useCurrentUser } from 'vuefire'
+import { useRouter } from 'vue-router'
+import { useAuthActions } from '@/composables/useAuthActions'
 
-const isLoading = ref<boolean>(false)
-const error = ref<boolean>(false)
-
-const provider = new GoogleAuthProvider()
-const auth = useFirebaseAuth()!
 const router = useRouter()
-const route = useRoute()
-
 const user = useCurrentUser()
-
 if (user) {
   router.push({ name: 'Roadmap' })
 }
 
-async function handleLogin() {
-  try {
-    isLoading.value = true
-    error.value = false
-
-    const result = await signInWithPopup(auth, provider)
-
-    if (!result.user) {
-      error.value = true
-      return
-    }
-
-    const redirectTo = typeof route.query.redirect === 'string' ? route.query.redirect : '/'
-
-    router.push(redirectTo)
-  } catch (err) {
-    error.value = true
-  } finally {
-    isLoading.value = false
-  }
-}
+const { isLoading, error, login } = useAuthActions()
 </script>
 
 <template>
@@ -53,7 +24,7 @@ async function handleLogin() {
         you receive and use feedback!
       </p>
 
-      <BaseButton class="mt-8 mx-auto" @click="handleLogin" :loading="isLoading">
+      <BaseButton class="mt-8 mx-auto" @click="login" :loading="isLoading">
         Login with Google
         <template #icon>
           <PhGoogleLogo />

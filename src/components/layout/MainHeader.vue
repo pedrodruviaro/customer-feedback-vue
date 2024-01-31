@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import MainLogo from '@/components/layout/MainLogo.vue'
 import MainNavigation from '@/components/layout/MainNavigation.vue'
+// import { useAuthActions } from '@/composables/useAuthActions'
+
+// const { isLoading, logout } = useAuthActions()
 </script>
 
 <template>
@@ -15,7 +18,6 @@ import MainNavigation from '@/components/layout/MainNavigation.vue'
           P
         </span>
       </div>
-
       <MainNavigation />
     </div>
   </header>
