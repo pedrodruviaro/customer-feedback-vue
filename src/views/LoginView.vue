@@ -3,7 +3,7 @@ import LoginLayout from '@/layouts/LoginLayout.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import { PhGoogleLogo } from '@phosphor-icons/vue'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import { useFirebaseAuth } from 'vuefire'
+import { useCurrentUser, useFirebaseAuth } from 'vuefire'
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
@@ -14,6 +14,12 @@ const provider = new GoogleAuthProvider()
 const auth = useFirebaseAuth()!
 const router = useRouter()
 const route = useRoute()
+
+const user = useCurrentUser()
+
+if (user) {
+  router.push({ name: 'Roadmap' })
+}
 
 async function handleLogin() {
   try {
