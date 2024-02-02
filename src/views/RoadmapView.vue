@@ -2,6 +2,8 @@
 import RoadmapGroup from '@/components/roadmap/RoadmapGroup.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 
+import SkeletonRoadmapGroups from '@/components/skeletons/SkeletonRoadmapGroups.vue'
+
 import { useTasksStore } from '@/stores/tasks'
 import { onActivated } from 'vue'
 import { ref } from 'vue'
@@ -39,6 +41,6 @@ onActivated(async () => await fetchTasks())
       />
     </section>
 
-    <h2 v-else>Loading...</h2>
+    <SkeletonRoadmapGroups v-else />
   </DefaultLayout>
 </template>
