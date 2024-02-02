@@ -1,56 +1,43 @@
 import { type Task, type TaskRelations } from '@/types'
 import { defineStore } from 'pinia'
-import { colors } from '@/common/RoadmapColorsByGroup'
-import { useFirestore } from 'vuefire'
-import { collection, query, getDocs } from 'firebase/firestore'
+import { colors } from '@/constants/roadmapColorsByGroup'
+import { statusValues } from '@/constants/statusValues'
 import { computed } from 'vue'
 import { ref } from 'vue'
+import { GET_ALL_TASKS } from '@/services/api'
 
 export const useTasksStore = defineStore('tasks', () => {
   const tasks = ref<Task[]>([])
 
   const tasksByGroup = computed(() => {
     const relations: TaskRelations = {
-      Planned: {
-        color: colors.Planned,
+      [statusValues.planned]: {
+        color: colors[statusValues.planned],
         items: []
       },
-      'In Progress': {
-        color: colors['In Progress'],
+      [statusValues.progress]: {
+        color: colors[statusValues.progress],
         items: []
       },
-      Complete: {
-        color: colors.Complete,
+      [statusValues.complete]: {
+        color: colors[statusValues.complete],
         items: []
       }
     }
 
     tasks.value.forEach((task) => {
-      relations[task.status].items.push(task)
+      if (relations[task.status]) {
+        relations[task.status].items.push(task)
+      }
     })
 
     return relations
   })
 
-  const db = useFirestore()
-  const q = query(collection(db, 'kaizen'))
   async function getAllTasks() {
-    tasks.value = []
+    const fetchedTasks = await GET_ALL_TASKS()
 
-    // await fetch('https://dummyjson.com/users')
-    // await fetch('https://dummyjson.com/users')
-    // await fetch('https://dummyjson.com/users')
-    // await fetch('https://dummyjson.com/users')
-    // await fetch('https://dummyjson.com/users')
-    // await fetch('https://dummyjson.com/users')
-
-    const querySnapshot = await getDocs(q)
-    querySnapshot.forEach((doc) => {
-      const task: Task = doc.data() as Task
-      task.id = doc.id
-
-      tasks.value.push(task)
-    })
+    tasks.value = fetchedTasks
   }
 
   return {

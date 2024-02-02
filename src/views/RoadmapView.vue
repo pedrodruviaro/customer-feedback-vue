@@ -3,12 +3,26 @@ import RoadmapGroup from '@/components/roadmap/RoadmapGroup.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 
 import { useTasksStore } from '@/stores/tasks'
+import { onActivated } from 'vue'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const tasksStore = useTasksStore()
 const loading = ref(false)
 
-await tasksStore.getAllTasks()
+const router = useRouter()
+async function fetchTasks() {
+  try {
+    loading.value = true
+    await tasksStore.getAllTasks()
+  } catch (error) {
+    router.push({ name: 'NetworkError' })
+  } finally {
+    loading.value = false
+  }
+}
+
+onActivated(async () => await fetchTasks())
 </script>
 
 <template>

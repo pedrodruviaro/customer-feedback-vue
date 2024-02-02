@@ -11,13 +11,15 @@ import LoadingScreen from '@/components/layout/LoadingScreen.vue'
   <RouterView v-slot="{ Component }">
     <template v-if="Component">
       <Transition name="fade">
-        <Suspense>
-          <component :is="Component" />
+        <KeepAlive>
+          <Suspense>
+            <component :is="Component" />
 
-          <template #fallback>
-            <LoadingScreen />
-          </template>
-        </Suspense>
+            <template #fallback>
+              <LoadingScreen />
+            </template>
+          </Suspense>
+        </KeepAlive>
       </Transition>
     </template>
   </RouterView>
