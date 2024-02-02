@@ -2,6 +2,7 @@
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { addDoc, collection } from 'firebase/firestore'
 import { useModal } from '@/composables/useModal'
+import { useCategoriesStore } from '@/stores/categories'
 
 const { close } = useModal()
 
@@ -14,7 +15,7 @@ interface Fields {
 const user = useCurrentUser()
 const db = useFirestore()
 
-const categories = ['Estudo', 'Projeto', 'Operações', 'Backlog']
+const categoriesStore = useCategoriesStore()
 
 async function handleNewTask(fields: Fields) {
   const newTask = {
@@ -61,7 +62,7 @@ async function handleNewTask(fields: Fields) {
         id="class"
         placeholder="Selecione a categoria"
         validation="required"
-        :options="categories"
+        :options="categoriesStore.categoriesNames"
       />
 
       <FormKit

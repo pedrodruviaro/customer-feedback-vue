@@ -26,6 +26,10 @@ export type TaskRelations = {
   }
 }
 
+export type Category = {
+  name: string
+}
+
 export type LoadingRouteEmit = {
   loading: boolean
 }
