@@ -25,3 +25,7 @@ export type TaskRelations = {
     items: Task[]
   }
 }
+
+export type LoadingRouteEmit = {
+  loading: boolean
+}

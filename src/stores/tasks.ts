@@ -35,6 +35,15 @@ export const useTasksStore = defineStore('tasks', () => {
   const db = useFirestore()
   const q = query(collection(db, 'kaizen'))
   async function getAllTasks() {
+    tasks.value = []
+
+    // await fetch('https://dummyjson.com/users')
+    // await fetch('https://dummyjson.com/users')
+    // await fetch('https://dummyjson.com/users')
+    // await fetch('https://dummyjson.com/users')
+    // await fetch('https://dummyjson.com/users')
+    // await fetch('https://dummyjson.com/users')
+
     const querySnapshot = await getDocs(q)
     querySnapshot.forEach((doc) => {
       const task: Task = doc.data() as Task

@@ -1,20 +1,27 @@
 <script setup lang="ts">
-import { useLoadingRoute } from '@/stores/loadingRoute'
-import { computed, ref, watchEffect } from 'vue'
+import { useLoadingRoute } from '@/composables/useLoadingRoute'
+import { computed, ref } from 'vue'
 
-const loadingStore = useLoadingRoute()
+const { loadingRouteBus } = useLoadingRoute()
 
 const loadingWidth = ref<string>('0')
-const loadingWidthStyle = computed(() => {
-  return `${loadingWidth.value}%`
+const isVisible = ref<boolean>(false)
+
+loadingRouteBus.on((payload) => {
+  if (payload.loading === true) {
+    loadingWidth.value = '80'
+    isVisible.value = true
+  } else {
+    loadingWidth.value = '100'
+
+    setTimeout(() => {
+      isVisible.value = false
+    }, 300)
+  }
 })
 
-watchEffect(() => {
-  if (loadingStore.loading === true) {
-    loadingWidth.value = '80'
-  } else if (loadingStore.loading === false) {
-    loadingWidth.value = '100'
-  }
+const loadingWidthStyle = computed(() => {
+  return `${loadingWidth.value}%`
 })
 </script>
 
@@ -22,6 +29,6 @@ watchEffect(() => {
   <div
     class="fixed top-0 h-1 bg-green-400 transition-all ease-out duration-200"
     :style="{ width: loadingWidthStyle }"
-    v-if="!loadingStore.finished"
+    v-if="isVisible"
   ></div>
 </template>
