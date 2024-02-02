@@ -5,19 +5,19 @@ import FeedbackMenu from '@/components/feedback/FeedbackMenu.vue'
 import FeedbackCreateNew from '@/components/feedback/FeedbackCreateNew.vue'
 import FeedbackIntro from '@/components/feedback/FeedbackIntro.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
-
 import { useTasksStore } from '@/stores/tasks'
-import { onActivated, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const tasksStore = useTasksStore()
 
 const router = useRouter()
 const loading = ref(false)
-async function fetchTasks() {
+
+async function fetchTasks(status = 'All') {
   try {
     loading.value = true
-    await tasksStore.getAllTasks()
+    await tasksStore.getAllTasks(status)
   } catch (error) {
     router.push({ name: 'NetworkError' })
   } finally {
@@ -25,16 +25,22 @@ async function fetchTasks() {
   }
 }
 
-onActivated(async () => await fetchTasks())
+onMounted(async () => await fetchTasks())
+
+async function handleMenuChange(status: string) {
+  await fetchTasks(status)
+}
 </script>
 
 <template>
   <DefaultLayout>
     <FeedbackIntro />
+
     <FeedbackCreateNew />
+
     <BaseCard class="border rounded-md">
       <template #header>
-        <FeedbackMenu />
+        <FeedbackMenu :loading="loading" @change="handleMenuChange" />
       </template>
 
       <template #default>

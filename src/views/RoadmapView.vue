@@ -5,8 +5,7 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import SkeletonRoadmapGroups from '@/components/skeletons/SkeletonRoadmapGroups.vue'
 
 import { useTasksStore } from '@/stores/tasks'
-import { onActivated } from 'vue'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 const tasksStore = useTasksStore()
@@ -24,7 +23,7 @@ async function fetchTasks() {
   }
 }
 
-onActivated(async () => await fetchTasks())
+onMounted(async () => await fetchTasks())
 </script>
 
 <template>
