@@ -26,7 +26,7 @@ defineProps<Props>()
 
     <template #default>
       <div class="p-4">
-        <ul class="grid gap-6 h-96 overflow-y-scroll" v-if="items.length > 0">
+        <ul class="grid gap-6 content-start h-96 overflow-y-scroll" v-if="items.length > 0">
           <li v-for="item in items" :key="item.title">
             <RouterLink to="/" class="font-semibold flex items-start gap-2">
               <PhArrowSquareIn class="flex-0 relative top-1" />

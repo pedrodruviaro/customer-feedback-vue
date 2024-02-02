@@ -16,7 +16,7 @@ const router = useRouter()
 async function fetchTasks() {
   try {
     loading.value = true
-    await tasksStore.getAllTasks()
+    await tasksStore.getTasksWithStatus()
   } catch (error) {
     router.push({ name: 'NetworkError' })
   } finally {

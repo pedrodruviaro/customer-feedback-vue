@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { useCurrentUser, useFirestore } from 'vuefire'
 import { addDoc, collection } from 'firebase/firestore'
+import { useModal } from '@/composables/useModal'
+
+const { close } = useModal()
 
 interface Fields {
   title: string
@@ -32,6 +35,8 @@ async function handleNewTask(fields: Fields) {
     const res = await addDoc(collection(db, 'kaizen'), newTask)
 
     console.log(res)
+
+    close()
   } catch (error) {
     console.error(error)
   }

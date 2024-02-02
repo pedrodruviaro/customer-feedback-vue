@@ -1,15 +1,36 @@
 <script setup lang="ts">
 import BaseButton from '@/components/base/BaseButton.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import FeedbackItem from '@/components/feedback/FeedbackItem.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
 import { PhPlus } from '@phosphor-icons/vue'
 import { useModal } from '@/composables/useModal'
 
-const { open } = useModal()
+import { useTasksStore } from '@/stores/tasks'
+import { onActivated, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const tasksStore = useTasksStore()
+
+const { open } = useModal()
 function handleOpenModal() {
   open({ modal: 'feedback', props: { title: 'Hello props' } })
 }
+
+const router = useRouter()
+const loading = ref(false)
+async function fetchTasks() {
+  try {
+    loading.value = true
+    await tasksStore.getAllTasks()
+  } catch (error) {
+    router.push({ name: 'NetworkError' })
+  } finally {
+    loading.value = false
+  }
+}
+
+onActivated(async () => await fetchTasks())
 </script>
 
 <template>
@@ -48,15 +69,11 @@ function handleOpenModal() {
       </template>
 
       <template #default>
-        <ul class="grid">
-          <li class="border-b p-4 cursor-pointer" v-for="i in 10" :key="i">
-            <h3 class="font-semibold mb-2">Criação de um portfólio público de criativos da bowe</h3>
-            <p class="text-sm">
-              A cada flow a bowe produz uma série de conteúdos e assets e que são cada vez melhores,
-              tenho certeza. Mas isso não chega para o comercial poder utilizar nas
-            </p>
-          </li>
+        <ul class="grid" v-if="tasksStore.tasks && !loading">
+          <FeedbackItem v-for="task in tasksStore.tasks" :key="task.id" :task="task" />
         </ul>
+
+        <p v-else-if="loading">Loading...</p>
       </template>
     </BaseCard>
   </DefaultLayout>
