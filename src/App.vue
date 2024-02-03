@@ -1,8 +1,18 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
 import ModalFactory from '@/components/factory/ModalFactory.vue'
 import RouteLoadingIndicator from '@/components/layout/RouteLoadingIndicator.vue'
 import LoadingScreen from '@/components/layout/LoadingScreen.vue'
+import { RouterView } from 'vue-router'
+import { useAdminStore } from '@/stores/admin'
+import { onMounted } from 'vue'
+
+const adminStore = useAdminStore()
+
+onMounted(async () => {
+  if (adminStore.isAdmin === null) {
+    await adminStore.checkAdminStatus()
+  }
+})
 </script>
 
 <template>

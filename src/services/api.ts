@@ -66,3 +66,11 @@ export async function GET_SINGLE_TASK(id: string) {
 
   return docSnap.exists() ? docSnap.data() : undefined
 }
+
+export async function CHECK_ADMIN_STATUS(uid: string) {
+  const db = useFirestore()
+  const docRef = doc(db, 'kaizen_admins', uid)
+  const docSnap = await getDoc(docRef)
+
+  return { isAdmin: docSnap.exists() }
+}

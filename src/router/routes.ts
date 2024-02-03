@@ -27,6 +27,15 @@ export const routes = [
     component: () => import('@/views/TaskView.vue')
   },
   {
+    path: '/admin',
+    name: 'Admin',
+    meta: {
+      needsAuth: true,
+      needsAdmin: true
+    },
+    component: () => import('@/views/AdminView.vue')
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/LoginView.vue')
