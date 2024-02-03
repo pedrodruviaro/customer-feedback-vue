@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BaseProfileIcon from '@/components/base/BaseProfileIcon.vue'
 import TaskBadge from '@/components/task/TaskBadge.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import { useTasksStore } from '@/stores/tasks'
@@ -44,9 +45,7 @@ await getTask()
       </div>
 
       <div class="flex gap-3 items-center flex-wrap mb-4">
-        <span class="w-8 aspect-square rounded-full bg-zinc-400 grid place-items-center font-bold">
-          {{ task.belongs_to.name.charAt(0) }}
-        </span>
+        <BaseProfileIcon :label="task.belongs_to.name" />
         <p class="font-semibold text-lg">{{ task.belongs_to.name }}</p>
       </div>
 
