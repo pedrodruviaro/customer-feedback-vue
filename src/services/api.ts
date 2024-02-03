@@ -1,5 +1,5 @@
 import { useFirestore } from 'vuefire'
-import { collection, where, query, getDocs } from 'firebase/firestore'
+import { collection, where, query, getDocs, getDoc, doc } from 'firebase/firestore'
 import { type Task } from '@/types'
 import { statusValues } from '@/constants/statusValues'
 
@@ -51,4 +51,18 @@ export async function GET_ROADMAP_TASKS() {
   })
 
   return tasks
+}
+
+export async function GET_SINGLE_TASK(id: string) {
+  const db = useFirestore()
+
+  await fetch('https://dummyjson.com/users')
+  await fetch('https://dummyjson.com/users')
+  await fetch('https://dummyjson.com/users')
+  await fetch('https://dummyjson.com/users')
+
+  const docRef = doc(db, 'kaizen', id)
+  const docSnap = await getDoc(docRef)
+
+  return docSnap.exists() ? docSnap.data() : undefined
 }

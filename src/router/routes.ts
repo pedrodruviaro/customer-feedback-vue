@@ -18,6 +18,15 @@ export const routes = [
     component: () => import('@/views/FeedbackView.vue')
   },
   {
+    path: '/kaizen/:id',
+    name: 'KaizenTask',
+    meta: {
+      needsAuth: true
+    },
+    props: true,
+    component: () => import('@/views/TaskView.vue')
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/LoginView.vue')
