@@ -5,6 +5,7 @@ import FeedbackMenu from '@/components/feedback/FeedbackMenu.vue'
 import FeedbackCreateNew from '@/components/feedback/FeedbackCreateNew.vue'
 import FeedbackIntro from '@/components/feedback/FeedbackIntro.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
+import SkeletonFeedbackList from '@/components/skeletons/SkeletonFeedbackList.vue'
 import { useTasksStore } from '@/stores/tasks'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -35,7 +36,6 @@ async function handleMenuChange(status: string) {
 <template>
   <DefaultLayout>
     <FeedbackIntro />
-
     <FeedbackCreateNew />
 
     <BaseCard class="border rounded-md">
@@ -45,8 +45,7 @@ async function handleMenuChange(status: string) {
 
       <template #default>
         <FeedbackList v-if="tasksStore.tasks && !loading" :tasks="tasksStore.tasks" />
-
-        <p v-else-if="loading">Loading...</p>
+        <SkeletonFeedbackList v-else-if="loading" />
       </template>
     </BaseCard>
   </DefaultLayout>
