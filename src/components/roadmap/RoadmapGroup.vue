@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { PhArrowSquareIn } from '@phosphor-icons/vue'
 import BaseCard from '@/components/base/BaseCard.vue'
+import RoadmapItem from '@/components/roadmap/RoadmapItem.vue'
 import type { Task } from '@/types'
 
 interface Props {
@@ -27,12 +27,7 @@ defineProps<Props>()
     <template #default>
       <div class="p-4">
         <ul class="grid gap-6 content-start h-96 overflow-y-scroll" v-if="items.length > 0">
-          <li v-for="item in items" :key="item.title">
-            <RouterLink to="/" class="font-semibold flex items-start gap-2">
-              <PhArrowSquareIn class="flex-0 relative top-1" />
-              <p class="flex-1 text-sm">{{ item.title }}</p>
-            </RouterLink>
-          </li>
+          <RoadmapItem v-for="item in items" :key="item.title" :task="item" />
         </ul>
         <p v-else>Nada pra mostrar</p>
       </div>
