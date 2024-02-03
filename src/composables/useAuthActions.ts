@@ -2,6 +2,7 @@ import { signOut, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useFirebaseAuth } from 'vuefire'
+import { useAdminStore } from '@/stores/admin'
 
 export function useAuthActions() {
   const auth = useFirebaseAuth()!
@@ -42,6 +43,11 @@ export function useAuthActions() {
       const redirectTo = typeof route.query.redirect === 'string' ? route.query.redirect : '/'
 
       router.push(redirectTo)
+
+      console.log('check for users')
+
+      const adminStore = useAdminStore()
+      await adminStore.checkAdminStatus()
     } catch (err) {
       error.value = true
     } finally {

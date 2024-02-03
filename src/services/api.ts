@@ -18,10 +18,6 @@ export async function GET_ALL_TASKS(status: string) {
 
   const tasks: Task[] = []
 
-  await fetch('https://dummyjson.com/users')
-  await fetch('https://dummyjson.com/users')
-  await fetch('https://dummyjson.com/users')
-
   const querySnapshot = await getDocs(q)
   querySnapshot.forEach((doc) => {
     const task: Task = doc.data() as Task
@@ -38,10 +34,6 @@ export async function GET_ROADMAP_TASKS() {
   const q = query(collection(db, 'kaizen'), where('status', 'in', STATUS_VALUES))
   const tasks: Task[] = []
 
-  await fetch('https://dummyjson.com/users')
-  await fetch('https://dummyjson.com/users')
-  await fetch('https://dummyjson.com/users')
-
   const querySnapshot = await getDocs(q)
   querySnapshot.forEach((doc) => {
     const task: Task = doc.data() as Task
@@ -56,10 +48,7 @@ export async function GET_ROADMAP_TASKS() {
 export async function GET_SINGLE_TASK(id: string) {
   const db = useFirestore()
 
-  await fetch('https://dummyjson.com/users')
-  await fetch('https://dummyjson.com/users')
-  await fetch('https://dummyjson.com/users')
-  await fetch('https://dummyjson.com/users')
+  // await fetch('https://dummyjson.com/users')
 
   const docRef = doc(db, 'kaizen', id)
   const docSnap = await getDoc(docRef)
