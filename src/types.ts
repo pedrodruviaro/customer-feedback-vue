@@ -15,7 +15,7 @@ export type Task = {
   is_finished: boolean
   belongs_to: {
     name: string
-    image: string
+    uid: string
   }
 }
 

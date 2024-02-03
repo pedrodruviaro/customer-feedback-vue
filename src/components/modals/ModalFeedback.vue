@@ -28,7 +28,7 @@ async function handleNewTask(fields: Fields) {
     is_finished: false,
     belongs_to: {
       name: user.value?.displayName,
-      image: user.value?.photoURL
+      uid: user.value?.uid
     }
   }
 

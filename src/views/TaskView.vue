@@ -3,9 +3,11 @@ import BaseProfileIcon from '@/components/base/BaseProfileIcon.vue'
 import TaskBadge from '@/components/task/TaskBadge.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import { useTasksStore } from '@/stores/tasks'
-import type { Task } from '@/types'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import type { Task } from '@/types'
+import { computed } from 'vue'
+import { useCurrentUser } from 'vuefire'
 
 interface Props {
   id: string
@@ -34,6 +36,11 @@ async function getTask() {
 }
 
 await getTask()
+
+const user = useCurrentUser()
+const isOwner = computed(() => {
+  return user?.value?.uid === task.value?.belongs_to.uid
+})
 </script>
 
 <template>
@@ -58,7 +65,7 @@ await getTask()
       <div class="flex items-center gap-4 flex-wrap justify-between">
         <p>{{ new Date(task.created_at).toLocaleDateString() }}</p>
 
-        <div class="flex gap-4">
+        <div class="flex gap-4" v-if="isOwner">
           <button>Edit Post</button>
           <button>Delete Post</button>
         </div>
