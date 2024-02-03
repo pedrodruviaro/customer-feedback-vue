@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BaseBadge from '@/components/base/BaseBadge.vue'
+import TaskBadge from '@/components/task/TaskBadge.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import { useTasksStore } from '@/stores/tasks'
 import type { Task } from '@/types'
@@ -40,7 +40,7 @@ await getTask()
     <section v-if="task">
       <div class="mb-8">
         <h2 class="font-bold text-xl md:text-2xl mb-2">{{ task.title }}</h2>
-        <BaseBadge>{{ task.status }}</BaseBadge>
+        <TaskBadge :status="task.status" />
       </div>
 
       <div class="flex gap-3 items-center flex-wrap mb-4">
