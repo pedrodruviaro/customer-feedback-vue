@@ -26,7 +26,7 @@ defineProps<Props>()
 
     <template #default>
       <div class="p-4">
-        <ul class="grid gap-6 content-start h-96 overflow-y-scroll" v-if="items.length > 0">
+        <ul class="grid gap-6 content-start h-96 overflow-y-auto" v-if="items.length > 0">
           <RoadmapItem v-for="item in items" :key="item.title" :task="item" />
         </ul>
         <p v-else>Nada pra mostrar</p>

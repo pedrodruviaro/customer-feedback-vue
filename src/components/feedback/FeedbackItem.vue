@@ -17,7 +17,7 @@ function handleClick() {
 
 <template>
   <li
-    class="border-b p-4 cursor-pointer overflow-hidden"
+    class="border-b p-4 cursor-pointer overflow-hidden hover:bg-zinc-100 transition-all"
     tabindex="0"
     @click="handleClick"
     @keypress.enter="handleClick"

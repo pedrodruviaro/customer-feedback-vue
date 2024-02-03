@@ -10,7 +10,7 @@ defineProps<Props>()
 </script>
 
 <template>
-  <li>
+  <li class="hover:text-zinc-400 transition-all">
     <RouterLink
       :to="{ name: 'KaizenTask', params: { id: task.id } }"
       class="font-semibold flex items-start gap-2"
