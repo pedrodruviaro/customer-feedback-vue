@@ -1,5 +1,5 @@
 import { useFirestore } from 'vuefire'
-import { collection, where, query, getDocs, getDoc, doc } from 'firebase/firestore'
+import { collection, where, query, getDocs, getDoc, doc, deleteDoc } from 'firebase/firestore'
 import { type Task } from '@/types'
 import { statusValues } from '@/constants/statusValues'
 
@@ -62,4 +62,10 @@ export async function CHECK_ADMIN_STATUS(uid: string) {
   const docSnap = await getDoc(docRef)
 
   return { isAdmin: docSnap.exists() }
+}
+
+export async function DELETE_TASK(id: string) {
+  const db = useFirestore()
+
+  await deleteDoc(doc(db, 'kaizen', id))
 }

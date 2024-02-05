@@ -8,13 +8,13 @@ import { useRouter } from 'vue-router'
 import type { Task } from '@/types'
 import { computed } from 'vue'
 import { useCurrentUser } from 'vuefire'
+import { useModal } from '@/composables/useModal'
 
 interface Props {
   id: string
 }
 
 const props = defineProps<Props>()
-
 const task = ref<Task>()
 
 const tasksStore = useTasksStore()
@@ -37,10 +37,26 @@ async function getTask() {
 
 await getTask()
 
+const taskDate = computed(() => {
+  return task.value ? new Date(task.value.created_at).toLocaleDateString() : ''
+})
+
 const user = useCurrentUser()
 const isOwner = computed(() => {
   return user?.value?.uid === task.value?.belongs_to.uid
 })
+
+const { open } = useModal()
+
+function handleDeleteTask() {
+  open({
+    modal: 'deleteTask',
+    props: {
+      taskId: props.id,
+      taskTitle: task.value?.title
+    }
+  })
+}
 </script>
 
 <template>
@@ -63,11 +79,11 @@ const isOwner = computed(() => {
       </div>
 
       <div class="flex items-center gap-4 flex-wrap justify-between">
-        <p>{{ new Date(task.created_at).toLocaleDateString() }}</p>
+        <p class="text-sm font-semibold">{{ taskDate }}</p>
 
         <div class="flex gap-4" v-if="isOwner">
-          <button>Edit Post</button>
-          <button>Delete Post</button>
+          <button class="hover:opacity-75">Edit Post</button>
+          <button class="hover:opacity-75" @click="handleDeleteTask">Delete Post</button>
         </div>
       </div>
     </section>

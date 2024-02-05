@@ -4,7 +4,7 @@ import { colors } from '@/constants/roadmapColorsByGroup'
 import { statusValues } from '@/constants/statusValues'
 import { computed } from 'vue'
 import { ref } from 'vue'
-import { GET_ALL_TASKS, GET_ROADMAP_TASKS, GET_SINGLE_TASK } from '@/services/api'
+import { GET_ALL_TASKS, GET_ROADMAP_TASKS, GET_SINGLE_TASK, DELETE_TASK } from '@/services/api'
 
 export const useTasksStore = defineStore('tasks', () => {
   const tasks = ref<Task[]>([])
@@ -50,11 +50,16 @@ export const useTasksStore = defineStore('tasks', () => {
     return await GET_SINGLE_TASK(id)
   }
 
+  async function deteleTask(id: string) {
+    return await DELETE_TASK(id)
+  }
+
   return {
     tasks,
     tasksByGroup,
     getAllTasks,
     getTasksWithStatus,
-    getSingleTask
+    getSingleTask,
+    deteleTask
   }
 })

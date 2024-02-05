@@ -25,8 +25,13 @@ function listener(payload: ModalFactoryPayload) {
 }
 
 const ModalFeedback = defineAsyncComponent(() => import('@/components/modals/ModalFeedback.vue'))
+const ModalConfirmeDeleteTask = defineAsyncComponent(
+  () => import('@/components/modals/ModalConfirmeDeleteTask.vue')
+)
+
 const components: any = {
-  feedback: ModalFeedback
+  feedback: ModalFeedback,
+  deleteTask: ModalConfirmeDeleteTask
 }
 </script>
 
