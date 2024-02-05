@@ -3,6 +3,7 @@ import { useCurrentUser, useFirestore } from 'vuefire'
 import { addDoc, collection } from 'firebase/firestore'
 import { useModal } from '@/composables/useModal'
 import { useCategoriesStore } from '@/stores/categories'
+import { statusValues } from '@/constants/statusValues'
 
 const { close } = useModal()
 
@@ -24,7 +25,7 @@ async function handleNewTask(fields: Fields) {
     description: fields.description,
     created_at: new Date().toISOString(),
     finish_by: '',
-    status: '',
+    status: statusValues.unset,
     is_finished: false,
     belongs_to: {
       name: user.value?.displayName,
