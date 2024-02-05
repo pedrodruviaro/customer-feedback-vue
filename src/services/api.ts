@@ -10,10 +10,8 @@ export async function GET_ALL_TASKS(status: string) {
 
   let q = query(collection(db, 'kaizen'))
 
-  if (status !== 'All' && status !== 'Unset') {
+  if (status !== 'All') {
     q = query(collection(db, 'kaizen'), where('status', '==', status))
-  } else if (status === 'Unset') {
-    q = query(collection(db, 'kaizen'), where('status', '==', ''))
   }
 
   const tasks: Task[] = []

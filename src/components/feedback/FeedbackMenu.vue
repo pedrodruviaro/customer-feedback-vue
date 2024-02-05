@@ -15,7 +15,6 @@ defineProps<Props>()
 const statusOptions = computed(() => {
   const options = Object.values(statusValues)
   options.unshift('All')
-  options.push('Unset')
 
   return options
 })
