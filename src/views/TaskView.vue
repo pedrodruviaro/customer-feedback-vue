@@ -57,6 +57,15 @@ function handleDeleteTask() {
     }
   })
 }
+
+function handleEditTask() {
+  open({
+    modal: 'feedback',
+    props: {
+      task: task.value
+    }
+  })
+}
 </script>
 
 <template>
@@ -82,7 +91,7 @@ function handleDeleteTask() {
         <p class="text-sm font-semibold">{{ taskDate }}</p>
 
         <div class="flex gap-4" v-if="isOwner">
-          <button class="hover:opacity-75">Edit Post</button>
+          <button class="hover:opacity-75" @click="handleEditTask">Edit Post</button>
           <button class="hover:opacity-75" @click="handleDeleteTask">Delete Post</button>
         </div>
       </div>

@@ -4,7 +4,14 @@ import { colors } from '@/constants/roadmapColorsByGroup'
 import { statusValues } from '@/constants/statusValues'
 import { computed } from 'vue'
 import { ref } from 'vue'
-import { GET_ALL_TASKS, GET_ROADMAP_TASKS, GET_SINGLE_TASK, DELETE_TASK } from '@/services/api'
+import {
+  GET_ALL_TASKS,
+  GET_ROADMAP_TASKS,
+  GET_SINGLE_TASK,
+  DELETE_TASK,
+  CREATE_TASK,
+  UPDATE_TASK
+} from '@/services/api'
 
 export const useTasksStore = defineStore('tasks', () => {
   const tasks = ref<Task[]>([])
@@ -50,6 +57,14 @@ export const useTasksStore = defineStore('tasks', () => {
     return await GET_SINGLE_TASK(id)
   }
 
+  async function createTask(task: Task) {
+    await CREATE_TASK(task)
+  }
+
+  async function updateTask(task: Task) {
+    await UPDATE_TASK(task)
+  }
+
   async function deteleTask(id: string) {
     return await DELETE_TASK(id)
   }
@@ -60,6 +75,8 @@ export const useTasksStore = defineStore('tasks', () => {
     getAllTasks,
     getTasksWithStatus,
     getSingleTask,
-    deteleTask
+    deteleTask,
+    createTask,
+    updateTask
   }
 })

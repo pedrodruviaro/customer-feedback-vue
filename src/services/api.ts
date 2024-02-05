@@ -1,5 +1,14 @@
 import { useFirestore } from 'vuefire'
-import { collection, where, query, getDocs, getDoc, doc, deleteDoc } from 'firebase/firestore'
+import {
+  collection,
+  where,
+  query,
+  getDocs,
+  getDoc,
+  doc,
+  deleteDoc,
+  addDoc
+} from 'firebase/firestore'
 import { type Task } from '@/types'
 import { statusValues } from '@/constants/statusValues'
 
@@ -66,4 +75,13 @@ export async function DELETE_TASK(id: string) {
   const db = useFirestore()
 
   await deleteDoc(doc(db, 'kaizen', id))
+}
+
+export async function CREATE_TASK(newTask: Task) {
+  const db = useFirestore()
+  await addDoc(collection(db, 'kaizen'), newTask)
+}
+
+export async function UPDATE_TASK(task: Task) {
+  console.log(task)
 }

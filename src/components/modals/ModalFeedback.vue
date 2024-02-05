@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { useCurrentUser, useFirestore } from 'vuefire'
-import { addDoc, collection } from 'firebase/firestore'
+import { useCurrentUser } from 'vuefire'
 import { useModal } from '@/composables/useModal'
 import { useCategoriesStore } from '@/stores/categories'
 import { statusValues } from '@/constants/statusValues'
 import { useNotifications } from '@/composables/useNotifications'
-
-const { close } = useModal()
-const { toast } = useNotifications()
+import type { Task } from '@/types'
+import { reactive, computed } from 'vue'
+import { useTasksStore } from '@/stores/tasks'
 
 interface Fields {
   title: string
@@ -15,13 +14,41 @@ interface Fields {
   description: string
 }
 
-const user = useCurrentUser()
-const db = useFirestore()
+interface Props {
+  task?: Task
+}
 
+const props = defineProps<Props>()
+
+const { close } = useModal()
+const { toast } = useNotifications()
 const categoriesStore = useCategoriesStore()
+const { createTask, updateTask } = useTasksStore()
+
+const user = useCurrentUser()
+
+const buttonLabel = computed(() => {
+  return props.task ? 'Edit' : 'Create'
+})
+
+const initialState = {
+  title: '',
+  category: '',
+  description: ''
+}
+
+if (props.task) {
+  initialState.title = props.task.title
+  initialState.category = props.task.category
+  initialState.description = props.task.description
+}
+
+const state = reactive(initialState)
 
 async function handleNewTask(fields: Fields) {
-  const newTask = {
+  const action = props.task ? 'edit' : 'create'
+
+  const taskValues = {
     category: fields.category,
     title: fields.title,
     description: fields.description,
@@ -30,21 +57,30 @@ async function handleNewTask(fields: Fields) {
     status: statusValues.unset,
     is_finished: false,
     belongs_to: {
-      name: user.value?.displayName,
-      uid: user.value?.uid
+      name: String(user.value?.displayName),
+      uid: String(user.value?.uid)
     }
   }
 
   try {
-    const res = await addDoc(collection(db, 'kaizen'), newTask)
+    if (action === 'edit') {
+      taskValues.created_at = String(props.task?.created_at)
+      taskValues.status = String(props.task?.status)
+      taskValues.finish_by = String(props.task?.finish_by)
+      taskValues.is_finished = props.task?.is_finished || false
 
-    if (res.id) {
-      toast({ action: 'success', message: 'Task created!' })
+      await updateTask(taskValues)
+
+      toast({ action: 'success', message: 'Task updated!' })
+      return
     }
+
+    await createTask(taskValues)
+    toast({ action: 'success', message: 'Task created!' })
 
     close()
   } catch (error) {
-    console.error(error)
+    toast({ action: 'error', message: 'Failed to create the task. Refresh and try again' })
   }
 }
 </script>
@@ -54,31 +90,34 @@ async function handleNewTask(fields: Fields) {
     <FormKit type="form" :actions="false" @submit="handleNewTask">
       <FormKit
         type="text"
-        label="Título do projeto"
-        placeholder="Reduzir custos com..."
+        label="Title"
+        placeholder="Create a new operation..."
         name="title"
         validation="required"
+        :value="state.title"
       />
 
       <FormKit
         type="select"
-        label="Categoria"
+        label="Category"
         name="category"
         id="class"
-        placeholder="Selecione a categoria"
+        placeholder="Select"
         validation="required"
         :options="categoriesStore.categoriesNames"
+        :value="state.category"
       />
 
       <FormKit
         type="textarea"
         name="description"
         label="Feedback"
-        placeholder="Descreva o feedbacks"
+        placeholder="Describe"
         validation="required"
+        :value="state.description"
       />
 
-      <FormKit type="submit" label="Criar" prefix-icon="check" />
+      <FormKit type="submit" :label="buttonLabel" prefix-icon="check" />
     </FormKit>
   </div>
 </template>
