@@ -7,6 +7,7 @@ import { useNotifications } from '@/composables/useNotifications'
 import type { Task } from '@/types'
 import { reactive, computed } from 'vue'
 import { useTasksStore } from '@/stores/tasks'
+import { emit } from 'process'
 
 interface Fields {
   title: string
@@ -16,6 +17,7 @@ interface Fields {
 
 interface Props {
   task?: Task
+  taskId?: string
 }
 
 const props = defineProps<Props>()
@@ -48,7 +50,7 @@ const state = reactive(initialState)
 async function handleNewTask(fields: Fields) {
   const action = props.task ? 'edit' : 'create'
 
-  const taskValues = {
+  let taskValues = {
     category: fields.category,
     title: fields.title,
     description: fields.description,
@@ -59,7 +61,8 @@ async function handleNewTask(fields: Fields) {
     belongs_to: {
       name: String(user.value?.displayName),
       uid: String(user.value?.uid)
-    }
+    },
+    id: ''
   }
 
   try {
@@ -68,19 +71,23 @@ async function handleNewTask(fields: Fields) {
       taskValues.status = String(props.task?.status)
       taskValues.finish_by = String(props.task?.finish_by)
       taskValues.is_finished = props.task?.is_finished || false
+      taskValues.id = String(props.taskId)
 
       await updateTask(taskValues)
 
       toast({ action: 'success', message: 'Task updated!' })
+      close()
+      window.location.reload()
       return
     }
 
     await createTask(taskValues)
     toast({ action: 'success', message: 'Task created!' })
-
     close()
   } catch (error) {
-    toast({ action: 'error', message: 'Failed to create the task. Refresh and try again' })
+    console.error(error)
+
+    toast({ action: 'error', message: `Failed to ${action} the task. Refresh and try again` })
   }
 }
 </script>

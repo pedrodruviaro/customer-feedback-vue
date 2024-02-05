@@ -7,7 +7,8 @@ import {
   getDoc,
   doc,
   deleteDoc,
-  addDoc
+  addDoc,
+  updateDoc
 } from 'firebase/firestore'
 import { type Task } from '@/types'
 import { statusValues } from '@/constants/statusValues'
@@ -83,5 +84,8 @@ export async function CREATE_TASK(newTask: Task) {
 }
 
 export async function UPDATE_TASK(task: Task) {
-  console.log(task)
+  const db = useFirestore()
+  const docRef = doc(db, 'kaizen', task.id)
+
+  await updateDoc(docRef, task)
 }

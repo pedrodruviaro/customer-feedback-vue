@@ -62,7 +62,8 @@ function handleEditTask() {
   open({
     modal: 'feedback',
     props: {
-      task: task.value
+      task: task.value,
+      taskId: props.id
     }
   })
 }

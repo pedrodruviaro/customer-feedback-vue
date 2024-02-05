@@ -5,7 +5,7 @@ export type ModalFactoryPayload = {
 }
 
 export type Task = {
-  id?: string
+  id: string
   category: string
   title: string
   description: string
