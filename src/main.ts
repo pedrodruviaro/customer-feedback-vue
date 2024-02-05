@@ -1,7 +1,9 @@
 import './assets/main.css'
+import 'vue-toast-notification/dist/theme-bootstrap.css'
 
 import App from './App.vue'
 import router from './router'
+import ToastPlugin from 'vue-toast-notification'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { firebaseApp } from './services/firebase'
@@ -19,5 +21,6 @@ app.use(VueFire, {
 })
 app.use(router)
 app.use(plugin, defaultConfig(config))
+app.use(ToastPlugin)
 
 app.mount('#app')

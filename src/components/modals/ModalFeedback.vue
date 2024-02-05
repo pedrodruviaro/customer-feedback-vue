@@ -4,8 +4,10 @@ import { addDoc, collection } from 'firebase/firestore'
 import { useModal } from '@/composables/useModal'
 import { useCategoriesStore } from '@/stores/categories'
 import { statusValues } from '@/constants/statusValues'
+import { useNotifications } from '@/composables/useNotifications'
 
 const { close } = useModal()
+const { toast } = useNotifications()
 
 interface Fields {
   title: string
@@ -36,7 +38,9 @@ async function handleNewTask(fields: Fields) {
   try {
     const res = await addDoc(collection(db, 'kaizen'), newTask)
 
-    console.log(res)
+    if (res.id) {
+      toast({ action: 'success', message: 'Task created!' })
+    }
 
     close()
   } catch (error) {

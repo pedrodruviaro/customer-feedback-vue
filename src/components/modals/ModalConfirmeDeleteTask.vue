@@ -4,6 +4,7 @@ import { useModal } from '@/composables/useModal'
 import { useTasksStore } from '@/stores/tasks'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useNotifications } from '@/composables/useNotifications'
 
 interface Props {
   taskTitle: string
@@ -11,8 +12,9 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const { close } = useModal()
 const loading = ref<boolean>(false)
+const { close } = useModal()
+const { toast } = useNotifications()
 
 const { deteleTask } = useTasksStore()
 const router = useRouter()
@@ -23,10 +25,11 @@ async function handleDelete() {
 
     await deteleTask(props.taskId)
 
+    toast({ action: 'success', message: 'Task deleted!' })
     close()
     router.push({ name: 'Feedback' })
   } catch (error) {
-    console.error(error)
+    toast({ action: 'error', message: 'Something went wrong... refresh and try again' })
   } finally {
     loading.value = false
   }
