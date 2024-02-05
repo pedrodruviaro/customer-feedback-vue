@@ -20,15 +20,13 @@ onMounted(async () => {
 
   <RouterView v-slot="{ Component }">
     <template v-if="Component">
-      <Transition name="fade">
-        <Suspense>
-          <component :is="Component" />
+      <Suspense>
+        <component :is="Component" />
 
-          <template #fallback>
-            <LoadingScreen />
-          </template>
-        </Suspense>
-      </Transition>
+        <template #fallback>
+          <LoadingScreen />
+        </template>
+      </Suspense>
     </template>
   </RouterView>
 
@@ -36,15 +34,3 @@ onMounted(async () => {
     <ModalFactory />
   </Teleport>
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.35s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

@@ -7,7 +7,6 @@ import { useNotifications } from '@/composables/useNotifications'
 import type { Task } from '@/types'
 import { reactive, computed } from 'vue'
 import { useTasksStore } from '@/stores/tasks'
-import { emit } from 'process'
 
 interface Fields {
   title: string
@@ -85,8 +84,6 @@ async function handleNewTask(fields: Fields) {
     toast({ action: 'success', message: 'Task created!' })
     close()
   } catch (error) {
-    console.error(error)
-
     toast({ action: 'error', message: `Failed to ${action} the task. Refresh and try again` })
   }
 }

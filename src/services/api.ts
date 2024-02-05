@@ -20,6 +20,13 @@ export async function GET_ALL_TASKS(status: string) {
 
   let q = query(collection(db, 'kaizen'))
 
+  await fetch('https://dummyjson.com/products')
+  await fetch('https://dummyjson.com/products')
+  await fetch('https://dummyjson.com/products')
+  await fetch('https://dummyjson.com/products')
+  await fetch('https://dummyjson.com/products')
+  await fetch('https://dummyjson.com/products')
+
   if (status !== 'All') {
     q = query(collection(db, 'kaizen'), where('status', '==', status))
   }
@@ -41,6 +48,13 @@ export async function GET_ROADMAP_TASKS() {
   const db = useFirestore()
   const q = query(collection(db, 'kaizen'), where('status', 'in', STATUS_VALUES))
   const tasks: Task[] = []
+
+  await fetch('https://dummyjson.com/products')
+  await fetch('https://dummyjson.com/products')
+  await fetch('https://dummyjson.com/products')
+  await fetch('https://dummyjson.com/products')
+  await fetch('https://dummyjson.com/products')
+  await fetch('https://dummyjson.com/products')
 
   const querySnapshot = await getDocs(q)
   querySnapshot.forEach((doc) => {
