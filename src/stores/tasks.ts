@@ -10,7 +10,8 @@ import {
   GET_SINGLE_TASK,
   DELETE_TASK,
   CREATE_TASK,
-  UPDATE_TASK
+  UPDATE_TASK,
+  UPDATE_TASK_STATUS
 } from '@/services/api'
 
 export const useTasksStore = defineStore('tasks', () => {
@@ -69,6 +70,10 @@ export const useTasksStore = defineStore('tasks', () => {
     return await DELETE_TASK(id)
   }
 
+  async function updateTaskStatus({ id, status }: { id: string; status: string }) {
+    return await UPDATE_TASK_STATUS({ id, status })
+  }
+
   return {
     tasks,
     tasksByGroup,
@@ -77,6 +82,7 @@ export const useTasksStore = defineStore('tasks', () => {
     getSingleTask,
     deteleTask,
     createTask,
-    updateTask
+    updateTask,
+    updateTaskStatus
   }
 })

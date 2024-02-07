@@ -4,6 +4,10 @@ export type ModalFactoryPayload = {
   props?: Object
 }
 
+export type TaskNotificationPayload = {
+  action: string
+}
+
 export type Task = {
   id: string
   category: string

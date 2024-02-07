@@ -28,10 +28,14 @@ const ModalFeedback = defineAsyncComponent(() => import('@/components/modals/Mod
 const ModalConfirmeDeleteTask = defineAsyncComponent(
   () => import('@/components/modals/ModalConfirmeDeleteTask.vue')
 )
+const ModalChangeTaskStatus = defineAsyncComponent(
+  () => import('@/components/modals/ModalChangeTaskStatus.vue')
+)
 
 const components: any = {
   feedback: ModalFeedback,
-  deleteTask: ModalConfirmeDeleteTask
+  deleteTask: ModalConfirmeDeleteTask,
+  changeTaskStatus: ModalChangeTaskStatus
 }
 </script>
 

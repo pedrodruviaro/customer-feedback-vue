@@ -7,6 +7,7 @@ import { useNotifications } from '@/composables/useNotifications'
 import type { Task } from '@/types'
 import { reactive, computed } from 'vue'
 import { useTasksStore } from '@/stores/tasks'
+import { useTaskComunication } from '@/composables/useTaskComunication'
 
 interface Fields {
   title: string
@@ -45,6 +46,7 @@ if (props.task) {
 }
 
 const state = reactive(initialState)
+const { notify } = useTaskComunication()
 
 async function handleNewTask(fields: Fields) {
   const action = props.task ? 'edit' : 'create'
@@ -75,13 +77,15 @@ async function handleNewTask(fields: Fields) {
       await updateTask(taskValues)
 
       toast({ action: 'success', message: 'Task updated!' })
+
+      notify({ action: 'update' })
       close()
-      window.location.reload()
       return
     }
 
     await createTask(taskValues)
     toast({ action: 'success', message: 'Task created!' })
+    notify({ action: 'create' })
     close()
   } catch (error) {
     toast({ action: 'error', message: `Failed to ${action} the task. Refresh and try again` })

@@ -20,13 +20,6 @@ export async function GET_ALL_TASKS(status: string) {
 
   let q = query(collection(db, 'kaizen'))
 
-  await fetch('https://dummyjson.com/products')
-  await fetch('https://dummyjson.com/products')
-  await fetch('https://dummyjson.com/products')
-  await fetch('https://dummyjson.com/products')
-  await fetch('https://dummyjson.com/products')
-  await fetch('https://dummyjson.com/products')
-
   if (status !== 'All') {
     q = query(collection(db, 'kaizen'), where('status', '==', status))
   }
@@ -49,13 +42,6 @@ export async function GET_ROADMAP_TASKS() {
   const q = query(collection(db, 'kaizen'), where('status', 'in', STATUS_VALUES))
   const tasks: Task[] = []
 
-  await fetch('https://dummyjson.com/products')
-  await fetch('https://dummyjson.com/products')
-  await fetch('https://dummyjson.com/products')
-  await fetch('https://dummyjson.com/products')
-  await fetch('https://dummyjson.com/products')
-  await fetch('https://dummyjson.com/products')
-
   const querySnapshot = await getDocs(q)
   querySnapshot.forEach((doc) => {
     const task: Task = doc.data() as Task
@@ -69,8 +55,6 @@ export async function GET_ROADMAP_TASKS() {
 
 export async function GET_SINGLE_TASK(id: string) {
   const db = useFirestore()
-
-  // await fetch('https://dummyjson.com/users')
 
   const docRef = doc(db, 'kaizen', id)
   const docSnap = await getDoc(docRef)
@@ -102,4 +86,14 @@ export async function UPDATE_TASK(task: Task) {
   const docRef = doc(db, 'kaizen', task.id)
 
   await updateDoc(docRef, task)
+}
+
+export async function UPDATE_TASK_STATUS({ id, status }: { id: string; status: string }) {
+  const db = useFirestore()
+
+  const docRef = doc(db, 'kaizen', id)
+
+  await updateDoc(docRef, {
+    status: status
+  })
 }

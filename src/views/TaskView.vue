@@ -3,12 +3,14 @@ import BaseProfileIcon from '@/components/base/BaseProfileIcon.vue'
 import TaskBadge from '@/components/task/TaskBadge.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import { useTasksStore } from '@/stores/tasks'
-import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import type { Task } from '@/types'
-import { computed } from 'vue'
+import { type TaskNotificationPayload, type Task } from '@/types'
+import { computed, onMounted, ref } from 'vue'
 import { useCurrentUser } from 'vuefire'
 import { useModal } from '@/composables/useModal'
+import { useAdminStore } from '@/stores/admin'
+import BaseButton from '@/components/base/BaseButton.vue'
+import { useTaskComunication } from '@/composables/useTaskComunication'
 
 interface Props {
   id: string
@@ -47,7 +49,6 @@ const isOwner = computed(() => {
 })
 
 const { open } = useModal()
-
 function handleDeleteTask() {
   open({
     modal: 'deleteTask',
@@ -67,6 +68,32 @@ function handleEditTask() {
     }
   })
 }
+
+function handleChangeTaskStatus() {
+  open({
+    modal: 'changeTaskStatus',
+    props: {
+      taskId: props.id,
+      currentStatus: task.value?.status
+    }
+  })
+}
+
+const adminStore = useAdminStore()
+onMounted(async () => {
+  if (adminStore.isAdmin === null) {
+    await adminStore.checkAdminStatus()
+  }
+})
+
+const { taskBus } = useTaskComunication()
+taskBus.on(listener)
+
+async function listener(payload: TaskNotificationPayload) {
+  if (payload.action === 'update') {
+    await getTask()
+  }
+}
 </script>
 
 <template>
@@ -74,7 +101,12 @@ function handleEditTask() {
     <section v-if="task">
       <div class="mb-8">
         <h2 class="font-bold text-xl md:text-2xl mb-2">{{ task.title }}</h2>
-        <TaskBadge :status="task.status" />
+        <div class="flex flex-wrap justify-between gap-4 items-center">
+          <TaskBadge :status="task.status" />
+          <BaseButton v-if="adminStore.isAdmin" variant="outlined" @click="handleChangeTaskStatus"
+            >Change Status</BaseButton
+          >
+        </div>
       </div>
 
       <div class="flex gap-3 items-center flex-wrap mb-4">

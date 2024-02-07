@@ -9,6 +9,17 @@ import SkeletonFeedbackList from '@/components/skeletons/SkeletonFeedbackList.vu
 import { useTasksStore } from '@/stores/tasks'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useTaskComunication } from '@/composables/useTaskComunication'
+import { type TaskNotificationPayload } from '@/types'
+
+const { taskBus } = useTaskComunication()
+taskBus.on(listener)
+
+async function listener(payload: TaskNotificationPayload) {
+  if (payload.action === 'create') {
+    await fetchTasks()
+  }
+}
 
 const tasksStore = useTasksStore()
 
