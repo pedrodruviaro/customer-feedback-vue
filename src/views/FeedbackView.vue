@@ -11,6 +11,9 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTaskComunication } from '@/composables/useTaskComunication'
 import { type TaskNotificationPayload } from '@/types'
+import { useTitle } from '@vueuse/core'
+
+useTitle('Tasks | Feedbacker')
 
 const { taskBus } = useTaskComunication()
 taskBus.on(listener)

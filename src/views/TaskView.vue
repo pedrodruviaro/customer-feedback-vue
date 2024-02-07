@@ -1,16 +1,17 @@
 <script setup lang="ts">
+import { type TaskNotificationPayload, type Task } from '@/types'
 import BaseProfileIcon from '@/components/base/BaseProfileIcon.vue'
 import TaskBadge from '@/components/task/TaskBadge.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 import { useTasksStore } from '@/stores/tasks'
 import { useRouter } from 'vue-router'
-import { type TaskNotificationPayload, type Task } from '@/types'
 import { computed, onMounted, ref } from 'vue'
 import { useCurrentUser } from 'vuefire'
 import { useModal } from '@/composables/useModal'
 import { useAdminStore } from '@/stores/admin'
-import BaseButton from '@/components/base/BaseButton.vue'
 import { useTaskComunication } from '@/composables/useTaskComunication'
+import { useTitle } from '@vueuse/core'
 
 interface Props {
   id: string
@@ -94,6 +95,10 @@ async function listener(payload: TaskNotificationPayload) {
     await getTask()
   }
 }
+
+onMounted(() => {
+  useTitle(`${task?.value?.title} | Feedbacker`)
+})
 </script>
 
 <template>

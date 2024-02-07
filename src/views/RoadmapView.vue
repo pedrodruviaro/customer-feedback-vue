@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import RoadmapGroup from '@/components/roadmap/RoadmapGroup.vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
-
 import SkeletonRoadmapGroups from '@/components/skeletons/SkeletonRoadmapGroups.vue'
-
 import { useTasksStore } from '@/stores/tasks'
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useTitle } from '@vueuse/core'
+
+useTitle('Roadmap | Feedbacker')
 
 const tasksStore = useTasksStore()
 const loading = ref(false)

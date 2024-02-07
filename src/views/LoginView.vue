@@ -5,6 +5,9 @@ import { PhGoogleLogo } from '@phosphor-icons/vue'
 import { useCurrentUser } from 'vuefire'
 import { useRouter } from 'vue-router'
 import { useAuthActions } from '@/composables/useAuthActions'
+import { useTitle } from '@vueuse/core'
+
+useTitle('Login | Feedbacker')
 
 const router = useRouter()
 const user = useCurrentUser()

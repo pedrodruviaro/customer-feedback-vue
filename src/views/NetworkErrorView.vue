@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import BaseButton from '@/components/base/BaseButton.vue'
 import { PhArrowLineLeft } from '@phosphor-icons/vue'
+import { useTitle } from '@vueuse/core'
+
+useTitle('Network Error | Feedbacker')
 </script>
 
 <template>
