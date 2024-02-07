@@ -1,5 +1,5 @@
-import { useEventBus } from '@vueuse/core'
 import { type LoadingRouteEmit } from '@/types'
+import { useEventBus } from '@vueuse/core'
 
 export function useLoadingRoute() {
   const loadingRouteBus = useEventBus<LoadingRouteEmit>('loadingRoute')

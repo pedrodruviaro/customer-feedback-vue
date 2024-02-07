@@ -1,3 +1,4 @@
+import { type Task } from '@/types'
 import { useFirestore } from 'vuefire'
 import {
   collection,
@@ -10,7 +11,6 @@ import {
   addDoc,
   updateDoc
 } from 'firebase/firestore'
-import { type Task } from '@/types'
 import { statusValues } from '@/constants/statusValues'
 
 const STATUS_VALUES = Object.values(statusValues)

@@ -1,5 +1,5 @@
-import { useLoadingRoute } from '@/composables/useLoadingRoute'
 import { type RouteLocationNormalized, type NavigationGuardNext } from 'vue-router'
+import { useLoadingRoute } from '@/composables/useLoadingRoute'
 
 function loadingRouteStarted(
   _: RouteLocationNormalized,

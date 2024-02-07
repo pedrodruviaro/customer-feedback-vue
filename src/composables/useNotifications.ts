@@ -1,5 +1,5 @@
-import { useToast } from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-sugar.css'
+import { useToast } from 'vue-toast-notification'
 
 interface Toast {
   action: 'success' | 'error'

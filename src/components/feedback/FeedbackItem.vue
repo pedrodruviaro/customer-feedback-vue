@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import TaskBadge from '@/components/task/TaskBadge.vue'
 import { type Task } from '@/types'
+import TaskBadge from '@/components/task/TaskBadge.vue'
 import { useRouter } from 'vue-router'
 
 interface Props {

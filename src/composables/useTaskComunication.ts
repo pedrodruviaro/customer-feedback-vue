@@ -1,5 +1,5 @@
-import { useEventBus } from '@vueuse/core'
 import { type TaskNotificationPayload } from '@/types'
+import { useEventBus } from '@vueuse/core'
 
 interface NotifyArgs {
   action: 'update' | 'create' | 'delete'

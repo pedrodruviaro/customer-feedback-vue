@@ -1,7 +1,7 @@
 <script lang="ts" setup>
+import type { ModalFactoryPayload } from '@/types'
 import { defineAsyncComponent, reactive } from 'vue'
 import { useModal } from '@/composables/useModal'
-import type { ModalFactoryPayload } from '@/types'
 
 interface State {
   isOpen: boolean

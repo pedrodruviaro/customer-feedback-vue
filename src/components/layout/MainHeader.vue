@@ -3,12 +3,12 @@ import MainLogo from '@/components/layout/MainLogo.vue'
 import MainNavigation from '@/components/layout/MainNavigation.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseProfileIconVue from '@/components/base/BaseProfileIcon.vue'
-// import { useAuthActions } from '@/composables/useAuthActions'
+import { useAuthActions } from '@/composables/useAuthActions'
 import { useCurrentUser } from 'vuefire'
 
 const user = useCurrentUser()
 
-// const { logout } = useAuthActions()
+const { logout } = useAuthActions()
 </script>
 
 <template>

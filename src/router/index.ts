@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
 import authGuard from '@/guards/auth'
+import { createRouter, createWebHistory } from 'vue-router'
 import { loadingRouteStarted, loadingRouteEnded } from '@/guards/loading'
 import { routes } from './routes'
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import FeedbackItem from '@/components/feedback/FeedbackItem.vue'
 import type { Task } from '@/types'
+import FeedbackItem from '@/components/feedback/FeedbackItem.vue'
 
 interface Props {
   tasks: Task[]

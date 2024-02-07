@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { type TaskNotificationPayload } from '@/types'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import FeedbackList from '@/components/feedback/FeedbackList.vue'
 import FeedbackMenu from '@/components/feedback/FeedbackMenu.vue'
@@ -10,7 +11,6 @@ import { useTasksStore } from '@/stores/tasks'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTaskComunication } from '@/composables/useTaskComunication'
-import { type TaskNotificationPayload } from '@/types'
 import { useTitle } from '@vueuse/core'
 
 useTitle('Tasks | Feedbacker')

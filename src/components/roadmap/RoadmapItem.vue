@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { PhArrowSquareIn } from '@phosphor-icons/vue'
 import { type Task } from '@/types'
+import { PhArrowSquareIn } from '@phosphor-icons/vue'
 
 interface Props {
   task: Task

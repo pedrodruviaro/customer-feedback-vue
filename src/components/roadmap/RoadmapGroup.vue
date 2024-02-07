@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { Task } from '@/types'
 import BaseCard from '@/components/base/BaseCard.vue'
 import RoadmapItem from '@/components/roadmap/RoadmapItem.vue'
-import type { Task } from '@/types'
 
 interface Props {
   items: Array<Task>

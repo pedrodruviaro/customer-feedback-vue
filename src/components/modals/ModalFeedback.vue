@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import type { Task } from '@/types'
 import { useCurrentUser } from 'vuefire'
 import { useModal } from '@/composables/useModal'
 import { useCategoriesStore } from '@/stores/categories'
 import { statusValues } from '@/constants/statusValues'
 import { useNotifications } from '@/composables/useNotifications'
-import type { Task } from '@/types'
 import { reactive, computed } from 'vue'
 import { useTasksStore } from '@/stores/tasks'
 import { useTaskComunication } from '@/composables/useTaskComunication'

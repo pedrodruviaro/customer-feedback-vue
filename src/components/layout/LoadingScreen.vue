@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <div class="fixed inset-0 bg-neutral-100 bg-opacity-95 grid place-items-center">
     <span class="loader"></span>
