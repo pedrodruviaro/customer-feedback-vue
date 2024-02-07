@@ -44,8 +44,6 @@ export function useAuthActions() {
 
       router.push(redirectTo)
 
-      console.log('check for users')
-
       const adminStore = useAdminStore()
       await adminStore.checkAdminStatus()
     } catch (err) {
