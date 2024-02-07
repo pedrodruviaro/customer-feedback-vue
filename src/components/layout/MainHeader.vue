@@ -4,10 +4,8 @@ import MainNavigation from '@/components/layout/MainNavigation.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseProfileIconVue from '@/components/base/BaseProfileIcon.vue'
 // import { useAuthActions } from '@/composables/useAuthActions'
-import { useAdminStore } from '@/stores/admin'
 import { useCurrentUser } from 'vuefire'
 
-const adminStore = useAdminStore()
 const user = useCurrentUser()
 
 // const { logout } = useAuthActions()
@@ -21,14 +19,6 @@ const user = useCurrentUser()
         <!-- <button @click="logout">Logout</button> -->
 
         <div class="flex items-center gap-4">
-          <BaseButton
-            variant="outlined"
-            :link="true"
-            :to="{ name: 'Admin' }"
-            v-if="adminStore.isAdmin"
-            >Admin Dashboard</BaseButton
-          >
-
           <BaseProfileIconVue :label="String(user?.displayName)" />
         </div>
       </div>
